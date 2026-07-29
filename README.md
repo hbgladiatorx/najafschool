@@ -79,5 +79,34 @@ After editing a CSS or JS file, bump the `?v=1` query on its `<link>`/`<script>`
 
 ## Deployment
 
-The site is static and can be hosted anywhere. For GitHub Pages: repository **Settings →
-Pages → Source: Deploy from a branch → `main` / `root`**.
+The site is static and can be hosted anywhere.
+
+### GitHub Pages
+
+Currently live at <https://hbgladiatorx.github.io/najafschool/>. Configured under repository
+**Settings → Pages → Source: Deploy from a branch → `main` / `root`**.
+
+### Own server (www.najaf.school)
+
+One-time server preparation — installs nginx, configures the site and obtains a Let's Encrypt
+certificate. Copy the script to the server and run it there:
+
+```bash
+scp server-setup.sh USER@HOST:~
+ssh USER@HOST 'CERT_EMAIL=you@example.com sudo -E bash server-setup.sh'
+```
+
+Then, from this machine, copy `deploy.env.example` to `deploy.env`, fill in the server
+details, and upload:
+
+```bash
+./deploy.sh --dry-run   # preview
+./deploy.sh             # upload
+```
+
+`deploy.sh` uses `rsync --delete`, so the remote web root ends up mirroring this repository
+exactly — anything else in that directory is removed. `deploy.env` is git-ignored.
+
+Prerequisites for the certificate step: `najaf.school` and `www.najaf.school` must already
+resolve to the server, and ports 80 and 443 must be open to the internet (on AWS this means
+the instance's **security group**, in addition to any firewall on the host).
