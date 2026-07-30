@@ -18,6 +18,8 @@ WEBROOT="/var/www/${DOMAIN}"
 # Let's Encrypt sends expiry warnings here. Override when running:
 #   CERT_EMAIL=you@example.com sudo -E bash server-setup.sh
 CERT_EMAIL="${CERT_EMAIL:-}"
+# The account that runs deploy.sh; it owns the web root so uploads need no sudo.
+DEPLOY_USER="${DEPLOY_USER:-${SUDO_USER:-ubuntu}}"
 
 if [[ $EUID -ne 0 ]]; then
   echo "Run with sudo: sudo bash server-setup.sh" >&2
@@ -44,9 +46,11 @@ if [[ ! -f "${WEBROOT}/index.html" ]]; then
   echo "<!doctype html><title>${DOMAIN}</title><p>Server ready. Awaiting deployment." \
     > "${WEBROOT}/index.html"
 fi
-chown -R www-data:www-data "${WEBROOT}" 2>/dev/null \
-  || chown -R nginx:nginx "${WEBROOT}" 2>/dev/null || true
-chmod -R 755 "${WEBROOT}"
+# Owned by the deploying user so ./deploy.sh works without sudo, group-readable
+# by the web server. setgid keeps the group on files rsync creates later.
+WEB_GROUP=$(getent group www-data >/dev/null && echo www-data || echo nginx)
+chown -R "${DEPLOY_USER}:${WEB_GROUP}" "${WEBROOT}"
+chmod -R 2755 "${WEBROOT}"
 
 # ── nginx site ──────────────────────────────────────────────────────────
 # Plain HTTP only at this stage; certbot rewrites this file to add the TLS

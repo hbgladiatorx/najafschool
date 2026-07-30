@@ -23,6 +23,14 @@ source deploy.env
 : "${REMOTE_PATH:?set REMOTE_PATH in deploy.env}"
 SSH_PORT="${SSH_PORT:-22}"
 
+# Identity file is optional — without it, ssh falls back to the agent and
+# to the default keys in ~/.ssh.
+SSH_OPTS="-p ${SSH_PORT}"
+if [[ -n "${SSH_KEY:-}" ]]; then
+  [[ -f "${SSH_KEY}" ]] || { echo "SSH_KEY not found: ${SSH_KEY}" >&2; exit 1; }
+  SSH_OPTS="${SSH_OPTS} -i ${SSH_KEY} -o IdentitiesOnly=yes"
+fi
+
 DRY_RUN=()
 if [[ "${1:-}" == "--dry-run" ]]; then
   DRY_RUN=(--dry-run)
@@ -34,15 +42,18 @@ echo "Deploying to ${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}"
 # --delete removes files on the server that no longer exist locally, so the
 # remote directory always mirrors the repository exactly. Everything listed in
 # --exclude is repository tooling that must never be served publicly.
-rsync -avz --checksum "${DRY_RUN[@]}" \
+rsync -avz --checksum ${DRY_RUN[@]+"${DRY_RUN[@]}"} \
   --delete \
   --exclude '.git/' \
   --exclude '.gitignore' \
+  --exclude '.claude/' \
   --exclude 'deploy.sh' \
   --exclude 'deploy.env' \
   --exclude 'deploy.env.example' \
   --exclude '.DS_Store' \
-  -e "ssh -p ${SSH_PORT}" \
+  --exclude 'server-setup.sh' \
+  --exclude 'README.md' \
+  -e "ssh ${SSH_OPTS}" \
   ./ "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}"
 
 echo
