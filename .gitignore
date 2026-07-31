@@ -1,2 +1,5 @@
 deploy.env
 .DS_Store
+server/.venv/
+server/data/
+__pycache__/

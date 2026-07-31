@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@300;400;600;700&family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v=1">
+<link rel="stylesheet" href="assets/styles.css?v=2">
 </head>
 <body>
 
@@ -181,128 +181,18 @@
 
   <!-- ── Apply ────────────────────────────────────────── -->
   <section id="apply" class="section">
-    <div class="wrap narrow">
+    <div class="wrap narrow apply-cta">
       <p class="section-eyebrow" data-i18n="applyEyebrow">استمارة التسجيل</p>
       <h2 data-i18n="applyTitle">طلب الالتحاق</h2>
-      <p class="lede" data-i18n="applyLede">يرجى تعبئة الحقول التالية بدقة. الحقول المؤشّرة بعلامة <span aria-hidden="true">*</span> إلزامية.</p>
-
-      <form id="applyForm" novalidate>
-        <fieldset>
-          <legend data-i18n="fsPersonal">المعلومات الشخصية</legend>
-          <div class="field">
-            <label for="f_name" data-i18n="lblName">الاسم الرباعي واللقب <span class="req">*</span></label>
-            <input id="f_name" name="entry.1626171286" type="text" required autocomplete="name">
-            <p class="err" data-err></p>
-          </div>
-          <div class="row">
-            <div class="field">
-              <label for="f_birthplace" data-i18n="lblBirthplace">مكان التولد <span class="req">*</span></label>
-              <input id="f_birthplace" name="entry.615586237" type="text" required>
-              <p class="err" data-err></p>
-            </div>
-            <div class="field">
-              <label for="f_birthyear" data-i18n="lblBirthyear">سنة التولد <span class="req">*</span></label>
-              <input id="f_birthyear" name="entry.1002684952" type="text" inputmode="numeric" required>
-              <p class="hint" data-i18n="hintAge">يشترط أن يكون العمر بين ١٧ و ٢٥ سنة.</p>
-              <p class="err" data-err></p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="field">
-              <label for="f_country" data-i18n="lblCountry">البلد <span class="req">*</span></label>
-              <input id="f_country" name="entry.1969650934" type="text" required autocomplete="country-name">
-              <p class="err" data-err></p>
-            </div>
-            <div class="field">
-              <label for="f_phone" data-i18n="lblPhone">رقم الهاتف (واتساب) <span class="req">*</span></label>
-              <input id="f_phone" name="entry.1898730539" type="tel" required autocomplete="tel" dir="ltr">
-              <p class="err" data-err></p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="field">
-              <span class="label" data-i18n="lblMarital">الحالة الاجتماعية <span class="req">*</span></span>
-              <div class="choices" role="radiogroup" aria-labelledby="f_marital_lbl">
-                <label class="choice"><input type="radio" name="entry.1906618117" value="اعزب" required><span data-i18n="optSingle">أعزب</span></label>
-                <label class="choice"><input type="radio" name="entry.1906618117" value="متزوج"><span data-i18n="optMarried">متزوج</span></label>
-              </div>
-              <p class="err" data-err></p>
-            </div>
-            <div class="field">
-              <label for="f_children" data-i18n="lblChildren">عدد الأطفال إن وُجد</label>
-              <input id="f_children" name="entry.457932636" type="text" inputmode="numeric">
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend data-i18n="fsResidence">الإقامة والوثائق</legend>
-          <div class="row">
-            <div class="field">
-              <label for="f_resdur" data-i18n="lblResDuration">مدة الإقامة <span class="req">*</span></label>
-              <input id="f_resdur" name="entry.792268296" type="text" required>
-              <p class="err" data-err></p>
-            </div>
-            <div class="field">
-              <label for="f_resnum" data-i18n="lblResNumber">رقم الإقامة <span class="req">*</span></label>
-              <input id="f_resnum" name="entry.1139343288" type="text" required dir="ltr">
-              <p class="err" data-err></p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="field">
-              <label for="f_passport" data-i18n="lblPassport">رقم جواز السفر <span class="req">*</span></label>
-              <input id="f_passport" name="entry.1068263183" type="text" required dir="ltr">
-              <p class="err" data-err></p>
-            </div>
-            <div class="field">
-              <label for="f_academic" data-i18n="lblAcademic">التحصيل الأكاديمي <span class="req">*</span></label>
-              <input id="f_academic" name="entry.2005157771" type="text" required>
-              <p class="err" data-err></p>
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset>
-          <legend data-i18n="fsRefs">المعرّفان</legend>
-          <p class="hint block" data-i18n="refsHint">يُذكر شخصان من طلبة العلوم الدينية ممن يعرفونك.</p>
-          <div class="row">
-            <div class="field">
-              <label for="f_ref1" data-i18n="lblRef1">اسم المعرّف الأول <span class="req">*</span></label>
-              <input id="f_ref1" name="entry.68488186" type="text" required>
-              <p class="err" data-err></p>
-            </div>
-            <div class="field">
-              <label for="f_ref1p" data-i18n="lblRef1Phone">رقم هاتف المعرّف الأول <span class="req">*</span></label>
-              <input id="f_ref1p" name="entry.569017037" type="tel" required dir="ltr">
-              <p class="err" data-err></p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="field">
-              <label for="f_ref2" data-i18n="lblRef2">اسم المعرّف الثاني <span class="req">*</span></label>
-              <input id="f_ref2" name="entry.1679801755" type="text" required>
-              <p class="err" data-err></p>
-            </div>
-            <div class="field">
-              <label for="f_ref2p" data-i18n="lblRef2Phone">رقم هاتف المعرّف الثاني <span class="req">*</span></label>
-              <input id="f_ref2p" name="entry.1694902936" type="tel" required dir="ltr">
-              <p class="err" data-err></p>
-            </div>
-          </div>
-        </fieldset>
-
-        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
-        <button class="btn btn-primary btn-block" type="submit" id="submitBtn" data-i18n="submit">إرسال الطلب</button>
-        <p class="fine" data-i18n="formFine">بالإرسال أنت تُقرّ بصحة البيانات المذكورة. للاستفسار يمكنك التواصل عبر الواتساب.</p>
-      </form>
-
-      <div class="success-card" id="successCard" hidden>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
-        <h3 data-i18n="successTitle">تم استلام طلبك</h3>
-        <p data-i18n="successBody">شكراً لك. سيتم التواصل معك عبر الواتساب بخصوص موعد المقابلة العلمية.</p>
-        <a class="btn btn-ghost" id="againBtn" href="#apply" data-i18n="successAgain">إرسال طلب آخر</a>
-      </div>
+      <p class="lede" data-i18n="applyLede"></p>
+      <ul class="apply-checklist">
+        <li data-i18n="applyItem1"></li>
+        <li data-i18n="applyItem2"></li>
+        <li data-i18n="applyItem3"></li>
+        <li data-i18n="applyItem4"></li>
+      </ul>
+      <a class="btn btn-primary btn-block" href="apply/" data-i18n="applyStart"></a>
+      <p class="fine" data-i18n="applyFine"></p>
     </div>
   </section>
 
@@ -345,7 +235,7 @@
   </div>
 </footer>
 
-<script src="assets/i18n.js?v=1"></script>
-<script src="assets/app.js?v=1"></script>
+<script src="assets/i18n.js?v=2"></script>
+<script src="assets/app.js?v=2"></script>
 </body>
 </html>

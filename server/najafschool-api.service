@@ -1,0 +1,32 @@
+[Unit]
+Description=Najaf School application intake API
+After=network.target
+
+[Service]
+Type=notify
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/najafschool
+EnvironmentFile=/etc/najafschool.env
+ExecStart=/opt/najafschool/.venv/bin/gunicorn \
+    --workers 2 \
+    --bind 127.0.0.1:8001 \
+    --timeout 120 \
+    --access-logfile - \
+    --error-logfile - \
+    app:app
+Restart=always
+RestartSec=3
+
+# The service only ever needs its own code and its data directory.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/najafschool
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+
+[Install]
+WantedBy=multi-user.target

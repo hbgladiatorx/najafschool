@@ -259,6 +259,25 @@ legend{
 .success-card svg{ width:56px; height:56px; fill:var(--green-800); margin-bottom:10px; }
 .success-card p{ color:var(--ink-2); }
 
+/* ── Apply call-to-action ───────────────────────────── */
+.apply-cta{ text-align:center; }
+.apply-cta .lede{ max-width:58ch; margin-inline:auto; }
+.apply-checklist{
+  list-style:none; margin:26px auto 30px; padding:24px 28px; max-width:520px;
+  background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow); text-align:start;
+}
+.apply-checklist li{
+  position:relative; padding-inline-start:30px; margin-bottom:12px; font-size:.97rem;
+}
+.apply-checklist li:last-child{ margin-bottom:0; }
+.apply-checklist li::before{
+  content:""; position:absolute; inset-inline-start:0; top:.55em;
+  width:12px; height:7px; border-inline-start:2px solid var(--gold);
+  border-bottom:2px solid var(--gold); transform:rotate(-45deg);
+}
+.apply-cta .btn-block{ max-width:520px; margin-inline:auto; }
+
 /* ── Contact ────────────────────────────────────────── */
 .contact-grid{ display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); margin-top:12px; }
 .contact-card{

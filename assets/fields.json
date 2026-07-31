@@ -1,0 +1,246 @@
+{
+  "version": 1,
+  "note": "Single source of truth for the application form. The browser renders the form from this file; the API validates submissions against it. Field `name` values are also the SQLite column names — renaming one requires a migration.",
+  "fluencyLevels": [
+    { "value": "none",         "label": { "ar": "لا شيء",   "en": "None" } },
+    { "value": "beginner",     "label": { "ar": "مبتدئ",    "en": "Beginner" } },
+    { "value": "intermediate", "label": { "ar": "متوسط",    "en": "Intermediate" } },
+    { "value": "advanced",     "label": { "ar": "متقدم",    "en": "Advanced" } },
+    { "value": "native",       "label": { "ar": "لغة أم",   "en": "Native" } }
+  ],
+  "sections": [
+    {
+      "id": "personal",
+      "title": { "ar": "المعلومات الشخصية", "en": "Personal information" },
+      "fields": [
+        { "name": "full_name", "type": "text", "required": true, "autocomplete": "name",
+          "label": { "ar": "الاسم الكامل", "en": "Full name" } },
+        { "name": "email", "type": "email", "required": true, "autocomplete": "email",
+          "label": { "ar": "البريد الإلكتروني", "en": "Email" } },
+        { "name": "phone", "type": "tel", "required": true, "autocomplete": "tel", "ltr": true,
+          "label": { "ar": "رقم الهاتف (واتساب)", "en": "Phone (WhatsApp)" } },
+        { "name": "address_street", "type": "text", "required": true, "autocomplete": "street-address",
+          "label": { "ar": "عنوان الشارع", "en": "Street address" } },
+        { "name": "address_city", "type": "text", "required": true, "autocomplete": "address-level2",
+          "label": { "ar": "المدينة", "en": "City" } },
+        { "name": "address_state", "type": "text", "required": false, "autocomplete": "address-level1",
+          "label": { "ar": "المحافظة / الولاية", "en": "State / Province" } },
+        { "name": "address_postal", "type": "text", "required": false, "autocomplete": "postal-code", "ltr": true,
+          "label": { "ar": "الرمز البريدي", "en": "Postal code" } },
+        { "name": "country", "type": "country", "required": true, "autocomplete": "country",
+          "label": { "ar": "بلد الإقامة", "en": "Country of residence" } },
+        { "name": "date_of_birth", "type": "date", "required": true,
+          "label": { "ar": "تاريخ الميلاد", "en": "Date of birth" },
+          "hint": { "ar": "بالتقويم الميلادي", "en": "Gregorian calendar" } },
+        { "name": "nationality", "type": "country", "required": true,
+          "label": { "ar": "الجنسية", "en": "Nationality" } },
+        { "name": "passport_issuer", "type": "country", "required": true,
+          "label": { "ar": "الدولة المصدرة لجواز السفر", "en": "Passport issuer" } },
+        { "name": "passport_number", "type": "text", "required": true, "ltr": true,
+          "label": { "ar": "رقم جواز السفر", "en": "Passport number" } },
+        { "name": "passport_copy", "type": "file", "required": true,
+          "label": { "ar": "نسخة مصوّرة من جواز السفر", "en": "Scanned copy of passport" } },
+        { "name": "marital_status", "type": "radio", "required": true,
+          "label": { "ar": "الحالة الاجتماعية", "en": "Marital status" },
+          "options": [
+            { "value": "single",    "label": { "ar": "أعزب",  "en": "Single" } },
+            { "value": "married",   "label": { "ar": "متزوج", "en": "Married" } },
+            { "value": "divorced",  "label": { "ar": "مطلّق", "en": "Divorced" } },
+            { "value": "widowed",   "label": { "ar": "أرمل",  "en": "Widowed" } },
+            { "value": "separated", "label": { "ar": "منفصل", "en": "Separated" } }
+          ] },
+        { "name": "languages_spoken", "type": "checkbox", "required": true,
+          "label": { "ar": "اللغات التي تتحدثها", "en": "Languages spoken" },
+          "options": [
+            { "value": "arabic",  "label": { "ar": "العربية",  "en": "Arabic" } },
+            { "value": "english", "label": { "ar": "الإنجليزية", "en": "English" } },
+            { "value": "urdu",    "label": { "ar": "الأردية",  "en": "Urdu" } },
+            { "value": "farsi",   "label": { "ar": "الفارسية", "en": "Farsi" } },
+            { "value": "other",   "label": { "ar": "أخرى",     "en": "Other" } }
+          ] },
+        { "name": "fluency_arabic", "type": "fluency", "required": true,
+          "label": { "ar": "مستوى العربية", "en": "Arabic fluency" } },
+        { "name": "fluency_english", "type": "fluency", "required": true,
+          "label": { "ar": "مستوى الإنجليزية", "en": "English fluency" } },
+        { "name": "fluency_farsi", "type": "fluency", "required": false,
+          "label": { "ar": "مستوى الفارسية", "en": "Farsi fluency" } },
+        { "name": "fluency_urdu", "type": "fluency", "required": false,
+          "label": { "ar": "مستوى الأردية", "en": "Urdu fluency" } },
+        { "name": "other_language", "type": "text", "required": false,
+          "showIf": { "field": "languages_spoken", "contains": "other" },
+          "label": { "ar": "اللغة الأخرى ومستواها", "en": "Other language and level" } }
+      ]
+    },
+    {
+      "id": "education",
+      "title": { "ar": "الخلفية التعليمية", "en": "Educational background" },
+      "fields": [
+        { "name": "education_level", "type": "select", "required": true,
+          "label": { "ar": "أعلى مستوى تعليمي أكملته", "en": "Highest level of education completed" },
+          "options": [
+            { "value": "high_school", "label": { "ar": "الثانوية",        "en": "High school" } },
+            { "value": "associate",   "label": { "ar": "دبلوم",           "en": "Associate degree" } },
+            { "value": "bachelor",    "label": { "ar": "بكالوريوس",       "en": "Bachelor's degree" } },
+            { "value": "master",      "label": { "ar": "ماجستير",         "en": "Master's degree" } },
+            { "value": "doctorate",   "label": { "ar": "دكتوراه",         "en": "Doctorate" } },
+            { "value": "other",       "label": { "ar": "أخرى",            "en": "Other" } }
+          ] },
+        { "name": "education_other", "type": "text", "required": true,
+          "showIf": { "field": "education_level", "equals": "other" },
+          "label": { "ar": "حدّد المستوى التعليمي", "en": "Please specify your education" } },
+        { "name": "institution", "type": "text", "required": true,
+          "label": { "ar": "المؤسسة التعليمية", "en": "Institution attended" } },
+        { "name": "field_of_study", "type": "text", "required": false,
+          "label": { "ar": "التخصص", "en": "Field of study" } },
+        { "name": "academic_honors", "type": "textarea", "required": false,
+          "label": { "ar": "الإنجازات أو المراتب الأكاديمية", "en": "Academic achievements or honours" } },
+        { "name": "prior_islamic_study", "type": "yesno", "required": true,
+          "label": { "ar": "هل سبق لك دراسة العلوم الإسلامية دراسة نظامية؟", "en": "Have you previously studied Islamic sciences formally?" } },
+        { "name": "islamic_subjects", "type": "checkbox", "required": false,
+          "showIf": { "field": "prior_islamic_study", "equals": "yes" },
+          "label": { "ar": "المواد التي درستها", "en": "Subjects studied" },
+          "options": [
+            { "value": "quran",   "label": { "ar": "علوم القرآن",    "en": "Quranic studies" } },
+            { "value": "nahw",    "label": { "ar": "النحو",          "en": "Arabic grammar" } },
+            { "value": "mantiq",  "label": { "ar": "المنطق",         "en": "Logic (manṭiq)" } },
+            { "value": "fiqh",    "label": { "ar": "الفقه",          "en": "Fiqh" } },
+            { "value": "usul",    "label": { "ar": "الأصول",         "en": "Uṣūl" } },
+            { "value": "history", "label": { "ar": "التاريخ",        "en": "History" } },
+            { "value": "other",   "label": { "ar": "أخرى",           "en": "Other" } }
+          ] },
+        { "name": "islamic_subjects_other", "type": "text", "required": false,
+          "showIf": { "field": "islamic_subjects", "contains": "other" },
+          "label": { "ar": "مواد إسلامية أخرى", "en": "Other Islamic subjects" } }
+      ]
+    },
+    {
+      "id": "religious",
+      "title": { "ar": "الالتزام والممارسة الدينية", "en": "Religious commitment and practice" },
+      "fields": [
+        { "name": "practicing_muslim", "type": "radio", "required": true,
+          "label": { "ar": "هل أنت مسلم ملتزم؟", "en": "Are you a practising Muslim?" },
+          "options": [
+            { "value": "yes",   "label": { "ar": "نعم",  "en": "Yes" } },
+            { "value": "no",    "label": { "ar": "لا",   "en": "No" } },
+            { "value": "other", "label": { "ar": "أخرى", "en": "Other" } }
+          ] },
+        { "name": "prayer_and_fasting", "type": "yesno", "required": true,
+          "label": { "ar": "هل تؤدي الصلوات اليومية وتصوم شهر رمضان؟", "en": "Do you perform the daily prayers and fast in Ramadan?" } },
+        { "name": "attends_programs", "type": "radio", "required": true,
+          "label": { "ar": "هل تحضر البرامج الدينية بانتظام؟", "en": "Do you regularly attend religious programmes?" },
+          "options": [
+            { "value": "yes",       "label": { "ar": "نعم",    "en": "Yes" } },
+            { "value": "no",        "label": { "ar": "لا",     "en": "No" } },
+            { "value": "sometimes", "label": { "ar": "أحياناً", "en": "Sometimes" } }
+          ] },
+        { "name": "program_location", "type": "text", "required": false,
+          "showIf": { "field": "attends_programs", "notEquals": "no" },
+          "label": { "ar": "مكان هذه البرامج", "en": "Where are these programmes held?" } },
+        { "name": "study_groups", "type": "yesno", "required": true,
+          "label": { "ar": "هل تشارك في حلقات دراسية إسلامية؟", "en": "Do you take part in Islamic study groups?" } },
+        { "name": "study_groups_detail", "type": "textarea", "required": false,
+          "showIf": { "field": "study_groups", "equals": "yes" },
+          "label": { "ar": "اذكر التفاصيل", "en": "Please elaborate" } }
+      ]
+    },
+    {
+      "id": "motivation",
+      "title": { "ar": "الدوافع والتقييم الفكري", "en": "Intellectual and motivational assessment" },
+      "intro": {
+        "ar": "أجب عن الأسئلة التالية بإسهاب. يمكنك الكتابة بالعربية أو الإنجليزية.",
+        "en": "Answer the following at length. You may write in Arabic or English."
+      },
+      "fields": [
+        { "name": "motivation_essay", "type": "essay", "required": true, "minWords": 350, "maxWords": 500,
+          "label": { "ar": "ما دوافعك لدراسة العلوم الحوزوية؟", "en": "What motivates you to study in the ḥawza?" } },
+        { "name": "long_term_goals", "type": "essay", "required": true, "minWords": 100,
+          "label": { "ar": "ما أهدافك بعيدة المدى بعد إتمام البرنامج؟", "en": "What are your long-term goals after the programme?" } },
+        { "name": "influential_books", "type": "essay", "required": true, "minWords": 100,
+          "label": { "ar": "اذكر ثلاثة كتب إسلامية أثّرت فيك، ولماذا", "en": "Name three Islamic books that influenced you, and why" } },
+        { "name": "speaking_experience", "type": "essay", "required": false,
+          "label": { "ar": "خبرتك في الخطابة أو الكتابة أو التدريس", "en": "Your experience in public speaking, writing or teaching" },
+          "hint": { "ar": "أضف روابط إن وُجدت", "en": "Include links if available" } },
+        { "name": "anticipated_challenges", "type": "essay", "required": true, "minWords": 50,
+          "label": { "ar": "ما التحديات التي تتوقعها خلال الدراسة؟", "en": "What challenges do you anticipate during your studies?" } },
+        { "name": "devotion_and_critical_thinking", "type": "essay", "required": true, "minWords": 100,
+          "label": { "ar": "كيف توازن بين التعبّد والتفكير النقدي؟ اذكر مثالاً من تجربتك", "en": "How do you balance devotion with critical thinking? Give a personal example" } }
+      ]
+    },
+    {
+      "id": "aptitude",
+      "title": { "ar": "الكفاءة اللغوية والمنطقية", "en": "Language and logic aptitude" },
+      "fields": [
+        { "name": "arabic_reading", "type": "level", "required": true,
+          "label": { "ar": "القراءة بالعربية", "en": "Arabic reading" } },
+        { "name": "arabic_writing", "type": "level", "required": true,
+          "label": { "ar": "الكتابة بالعربية", "en": "Arabic writing" } },
+        { "name": "arabic_speaking", "type": "level", "required": true,
+          "label": { "ar": "التحدث بالعربية", "en": "Arabic speaking" } },
+        { "name": "arabic_certificate", "type": "file", "required": false,
+          "label": { "ar": "شهادة في اللغة العربية إن وُجدت", "en": "Arabic language certificate, if any" } },
+        { "name": "comprehension_summary", "type": "essay", "required": true, "minWords": 50,
+          "label": { "ar": "لخّص نصاً دينياً أو محاضرة قرأتها أو سمعتها مؤخراً", "en": "Summarise a religious text or lecture you recently read or heard" } },
+        { "name": "logic_answer", "type": "essay", "required": true, "maxWords": 100,
+          "label": { "ar": "بيّن الفرق بين الصفة الذاتية والصفة العرضية، مع مثال", "en": "Explain the difference between essential and accidental attributes, with an example" },
+          "hint": { "ar": "بحد أقصى ١٠٠ كلمة", "en": "Maximum 100 words" } }
+      ]
+    },
+    {
+      "id": "references",
+      "title": { "ar": "المعرّفون والوثائق", "en": "References and documents" },
+      "fields": [
+        { "name": "heading_scholar", "type": "heading",
+          "label": { "ar": "معرّف من أهل العلم", "en": "Religious leader or scholar reference" } },
+        { "name": "ref1_name", "type": "text", "required": true,
+          "label": { "ar": "الاسم", "en": "Name" } },
+        { "name": "ref1_affiliation", "type": "text", "required": true,
+          "label": { "ar": "الجهة أو المؤسسة", "en": "Affiliation" } },
+        { "name": "ref1_email", "type": "email", "required": true,
+          "label": { "ar": "البريد الإلكتروني", "en": "Email" } },
+        { "name": "ref1_phone", "type": "tel", "required": true, "ltr": true,
+          "label": { "ar": "رقم الهاتف", "en": "Phone" } },
+        { "name": "ref1_duration", "type": "text", "required": true,
+          "label": { "ar": "منذ متى يعرفك؟", "en": "How long have they known you?" } },
+
+        { "name": "heading_personal", "type": "heading",
+          "label": { "ar": "معرّف شخصي", "en": "Personal character reference" } },
+        { "name": "ref2_name", "type": "text", "required": true,
+          "label": { "ar": "الاسم", "en": "Name" } },
+        { "name": "ref2_email", "type": "email", "required": true,
+          "label": { "ar": "البريد الإلكتروني", "en": "Email" } },
+        { "name": "ref2_phone", "type": "tel", "required": true, "ltr": true,
+          "label": { "ar": "رقم الهاتف", "en": "Phone" } },
+        { "name": "ref2_relationship", "type": "text", "required": true,
+          "label": { "ar": "صلته بك", "en": "Relationship to you" } },
+
+        { "name": "heading_support", "type": "heading",
+          "label": { "ar": "الدعم والوثائق", "en": "Support and documents" } },
+        { "name": "financial_status", "type": "radio", "required": true,
+          "label": { "ar": "الوضع المالي", "en": "Financial status" },
+          "options": [
+            { "value": "independent", "label": { "ar": "مستقل مالياً",   "en": "Financially independent" } },
+            { "value": "support",     "label": { "ar": "أحتاج إلى دعم", "en": "Require support" } }
+          ] },
+        { "name": "transcript", "type": "file", "required": true,
+          "label": { "ar": "كشف الدرجات الأكاديمي", "en": "Academic transcript" } },
+        { "name": "recommendation_letter", "type": "file", "required": true,
+          "label": { "ar": "رسالة تزكية", "en": "Letter of recommendation" } },
+        { "name": "certificates", "type": "file", "required": false,
+          "label": { "ar": "شهادات دراسية أو دينية", "en": "Islamic or academic certificates" } },
+        { "name": "personal_statement", "type": "essay", "required": true, "minWords": 700,
+          "label": { "ar": "البيان الشخصي", "en": "Personal statement" },
+          "hint": { "ar": "٧٠٠ كلمة على الأقل", "en": "Minimum 700 words" } },
+
+        { "name": "declaration", "type": "declaration", "required": true,
+          "label": {
+            "ar": "أُقرّ بأن جميع المعلومات المذكورة صحيحة، وألتزم بالنظام الدراسي للمدرسة.",
+            "en": "I declare that all the information given is accurate, and I commit to the school's regulations."
+          } },
+        { "name": "signature", "type": "text", "required": true,
+          "label": { "ar": "التوقيع — اكتب اسمك الكامل", "en": "Signature — type your full name" } },
+        { "name": "signed_date", "type": "date", "required": true,
+          "label": { "ar": "التاريخ", "en": "Date" } }
+      ]
+    }
+  ]
+}

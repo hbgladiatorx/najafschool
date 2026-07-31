@@ -52,6 +52,7 @@ rsync -avz --checksum ${DRY_RUN[@]+"${DRY_RUN[@]}"} \
   --exclude 'deploy.env.example' \
   --exclude '.DS_Store' \
   --exclude 'server-setup.sh' \
+  --exclude 'server/' \
   --exclude 'README.md' \
   -e "ssh ${SSH_OPTS}" \
   ./ "${SSH_USER}@${SSH_HOST}:${REMOTE_PATH}"
