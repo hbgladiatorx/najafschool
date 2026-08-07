@@ -162,6 +162,32 @@ html[dir="rtl"] .section-eyebrow{ letter-spacing:0; font-size:.92rem; text-trans
   width:8px; height:8px; border-radius:50%; background:var(--gold);
 }
 
+/* ── Supervision ────────────────────────────────────── */
+.scholar-card{
+  background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+  padding:32px 34px; box-shadow:var(--shadow); max-width:860px;
+  border-top:3px solid var(--gold);
+}
+.scholar-head{ display:flex; align-items:center; gap:18px; margin-bottom:22px; }
+.scholar-mark{ color:var(--green-800); flex:none; display:grid; place-items:center; }
+.scholar-head h3{
+  margin:0 0 2px; font-size:1.25rem; color:var(--green-800); line-height:1.4;
+}
+.scholar-role{ margin:0; font-size:.9rem; color:var(--ink-2); }
+.scholar-card p{ color:var(--ink-2); }
+.scholar-card h4{
+  font-family:var(--font-body); font-size:.97rem; font-weight:600; color:var(--ink);
+  margin:26px 0 14px; padding-top:20px; border-top:1px solid var(--line);
+}
+.project-list{ list-style:none; margin:0; padding:0; display:grid; gap:10px; }
+.project-list li{
+  position:relative; padding-inline-start:28px; font-size:.96rem;
+}
+.project-list li::before{
+  content:""; position:absolute; inset-inline-start:6px; top:.62em;
+  width:7px; height:7px; border-radius:50%; background:var(--gold);
+}
+
 /* ── Curriculum ─────────────────────────────────────── */
 .year-card{
   background:#fff; border:1px solid var(--line); border-radius:var(--radius);
