@@ -223,7 +223,9 @@ def validate(schema: dict, answers: dict) -> dict[str, str]:
             errors[name] = "email"
         elif ftype in ("date", "signed_date") and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
             errors[name] = "date"
-        elif ftype == "country" and not re.fullmatch(r"[A-Z]{2}", value):
+        elif ftype == "country" and value not in schema.get("countries", []):
+            # An allowlist: any code not offered in the form is refused, so a
+            # crafted request cannot submit a country the school does not accept.
             errors[name] = "invalid"
         elif ftype == "fluency" and value not in fluency_values:
             errors[name] = "invalid"

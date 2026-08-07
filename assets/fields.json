@@ -1,6 +1,19 @@
 {
   "version": 1,
   "note": "Single source of truth for the application form. The browser renders the form from this file; the API validates submissions against it. Field `name` values are also the SQLite column names — renaming one requires a migration.",
+  "countriesNote": "The countries offered in every country dropdown. The API accepts only these codes, so removing one here removes it from the form and rejects it on submission.",
+  "countries": [
+    "AF", "AL", "DZ", "AD", "AO", "AG", "AR", "AM", "AU", "AT", "AZ", "BS", "BH", "BD", "BB", "BY", "BE", "BZ", "BJ", "BT",
+    "BO", "BA", "BW", "BR", "BN", "BG", "BF", "BI", "KH", "CM", "CA", "CV", "CF", "TD", "CL", "CO", "KM", "CG", "CD", "CR",
+    "CI", "HR", "CU", "CY", "CZ", "DK", "DJ", "DM", "DO", "EC", "EG", "SV", "GQ", "ER", "EE", "SZ", "ET", "FJ", "FI", "FR",
+    "GA", "GM", "GE", "DE", "GH", "GR", "GD", "GT", "GN", "GW", "GY", "HT", "HN", "HU", "IS", "IN", "ID", "IR", "IQ", "IE",
+    "IT", "JM", "JP", "JO", "KZ", "KE", "KI", "KW", "KG", "LA", "LV", "LB", "LS", "LR", "LY", "LI", "LT", "LU", "MG", "MW",
+    "MY", "MV", "ML", "MT", "MH", "MR", "MU", "MX", "FM", "MD", "MC", "MN", "ME", "MA", "MZ", "MM", "NA", "NR", "NP", "NL",
+    "NZ", "NI", "NE", "NG", "KP", "MK", "NO", "OM", "PK", "PW", "PS", "PA", "PG", "PY", "PE", "PH", "PL", "PT", "QA", "RO",
+    "RU", "RW", "KN", "LC", "VC", "WS", "SM", "ST", "SA", "SN", "RS", "SC", "SL", "SG", "SK", "SI", "SB", "SO", "ZA", "KR",
+    "SS", "ES", "LK", "SD", "SR", "SE", "CH", "SY", "TJ", "TZ", "TH", "TL", "TG", "TO", "TT", "TN", "TR", "TM", "TV", "UG",
+    "UA", "AE", "GB", "US", "UY", "UZ", "VU", "VA", "VN", "YE", "ZM", "ZW", "HK", "MO", "PR"
+  ],
   "fluencyLevels": [
     { "value": "none",         "label": { "ar": "لا شيء",   "en": "None" } },
     { "value": "beginner",     "label": { "ar": "مبتدئ",    "en": "Beginner" } },

@@ -138,6 +138,27 @@ def main():
     check("rejects an option not in the schema",
           res.status_code == 422 and res.get_json()["errors"].get("marital_status") == "invalid")
 
+    print("\ncountry allowlist")
+    offered = service.load_schema().get("countries", [])
+    check("the schema defines the offered countries", len(offered) > 100, len(offered))
+
+    # Anything absent from the list must be refused, whatever it is. Every
+    # country dropdown enforces the same list.
+    absent = [c for c in ("ZZ", "QQ", "XX") if c not in offered]
+    for field in ("country", "nationality", "passport_issuer"):
+        for code in absent:
+            res = client.post("/api/apply",
+                              data=with_files({**base, field: code}),
+                              content_type="multipart/form-data")
+            check(f"{field} rejects unlisted code {code}",
+                  res.status_code == 422
+                  and res.get_json()["errors"].get(field) == "invalid")
+
+    res = client.post("/api/apply",
+                      data=with_files({**base, "passport_issuer": offered[0]}),
+                      content_type="multipart/form-data")
+    check("an offered country is accepted", res.status_code == 201, res.get_json())
+
     print("\nconditional fields")
     # education_other is only required when education_level is "other"
     res = client.post("/api/apply",
@@ -172,8 +193,14 @@ def main():
     check("rejects a missing required upload",
           res.status_code == 422 and res.get_json()["errors"].get("passport_copy") == "required")
 
-    check("no files kept from rejected submissions",
-          len(list((TMP / "uploads").iterdir())) == 2)  # the two accepted ones only
+    # Every upload directory must belong to an accepted application: rejected
+    # submissions have to leave nothing behind.
+    accepted = {
+        row[0] for row in service.sqlite3.connect(TMP / "applications.db")
+        .execute("SELECT id FROM applications")
+    }
+    orphans = [d.name for d in (TMP / "uploads").iterdir() if d.name not in accepted]
+    check("no files kept from rejected submissions", not orphans, orphans)
 
     print("\nsecurity")
     res = client.post("/api/apply",
